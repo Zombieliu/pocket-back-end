@@ -1,5 +1,6 @@
 import { ServiceProto } from 'tsrpc-proto';
 import { ReqCheckEmail, ResCheckEmail } from './PtlCheckEmail';
+import { ReqGetChainTokenBalance, ResGetChainTokenBalance } from './PtlGetChainTokenBalance';
 import { ReqGetTokenBalance, ResGetTokenBalance } from './PtlGetTokenBalance';
 import { ReqGetTokenInfo, ResGetTokenInfo } from './PtlGetTokenInfo';
 import { ReqGetUserNftList, ResGetUserNftList } from './PtlGetUserNftList';
@@ -10,6 +11,10 @@ export interface ServiceType {
         "CheckEmail": {
             req: ReqCheckEmail,
             res: ResCheckEmail
+        },
+        "GetChainTokenBalance": {
+            req: ReqGetChainTokenBalance,
+            res: ResGetChainTokenBalance
         },
         "GetTokenBalance": {
             req: ReqGetTokenBalance,
@@ -34,11 +39,16 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 4,
+    "version": 5,
     "services": [
         {
             "id": 1,
             "name": "CheckEmail",
+            "type": "api"
+        },
+        {
+            "id": 9,
+            "name": "GetChainTokenBalance",
             "type": "api"
         },
         {
@@ -97,6 +107,37 @@ export const serviceProto: ServiceProto<ServiceType> = {
                     "name": "state",
                     "type": {
                         "type": "Boolean"
+                    }
+                }
+            ]
+        },
+        "PtlGetChainTokenBalance/ReqGetChainTokenBalance": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "address",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        "PtlGetChainTokenBalance/ResGetChainTokenBalance": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "time",
+                    "type": {
+                        "type": "Date"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "chain_token_balance",
+                    "type": {
+                        "type": "String"
                     }
                 }
             ]
