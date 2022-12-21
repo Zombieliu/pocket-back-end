@@ -19,8 +19,7 @@ export default async function (call: ApiCall<ReqGetChainTokenBalance, ResGetChai
 
     const balance = (await api.query.system.account(address)).toHuman();
     // @ts-ignore
-    const balance_amount = balance['data'].free;
-
+    const balance_amount = (balance.data.free).replace(/,/g, "");
     // Success
     await call.succ({
         time: time,
