@@ -39,6 +39,8 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
             let new_data_list = []
             for (let i = 0; i < data_list.total; i++){
                 const data = data_list.items[i];
+                data.tokenName = 'W3G';
+                data.decimals = '18';
                 delete data.tokenFungibleCreated;
                 delete data.fungibleTokenId;
                 delete data.blockNum;
