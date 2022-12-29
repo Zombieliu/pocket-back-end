@@ -1,5 +1,6 @@
 import { ServiceProto } from 'tsrpc-proto';
 import { ReqCheckEmail, ResCheckEmail } from './PtlCheckEmail';
+import { ReqGetAccountTokenTransaction, ResGetAccountTokenTransaction } from './PtlGetAccountTokenTransaction';
 import { ReqGetChainTokenBalance, ResGetChainTokenBalance } from './PtlGetChainTokenBalance';
 import { ReqGetTokenBalance, ResGetTokenBalance } from './PtlGetTokenBalance';
 import { ReqGetTokenInfo, ResGetTokenInfo } from './PtlGetTokenInfo';
@@ -11,6 +12,10 @@ export interface ServiceType {
         "CheckEmail": {
             req: ReqCheckEmail,
             res: ResCheckEmail
+        },
+        "GetAccountTokenTransaction": {
+            req: ReqGetAccountTokenTransaction,
+            res: ResGetAccountTokenTransaction
         },
         "GetChainTokenBalance": {
             req: ReqGetChainTokenBalance,
@@ -39,11 +44,16 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 5,
+    "version": 8,
     "services": [
         {
             "id": 1,
             "name": "CheckEmail",
+            "type": "api"
+        },
+        {
+            "id": 11,
+            "name": "GetAccountTokenTransaction",
             "type": "api"
         },
         {
@@ -107,6 +117,44 @@ export const serviceProto: ServiceProto<ServiceType> = {
                     "name": "state",
                     "type": {
                         "type": "Boolean"
+                    }
+                }
+            ]
+        },
+        "PtlGetAccountTokenTransaction/ReqGetAccountTokenTransaction": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "address",
+                    "type": {
+                        "type": "String"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "fungibleTokenId",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        "PtlGetAccountTokenTransaction/ResGetAccountTokenTransaction": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "time",
+                    "type": {
+                        "type": "Date"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "data_list",
+                    "type": {
+                        "type": "String"
                     }
                 }
             ]
