@@ -26,7 +26,7 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
     const address = call.req.address;
     const fungibleTokenId = call.req.fungibleTokenId;
     const data = await explorer_api.post('/tokenFungible/ListTokenFungibleTransfer',{
-        address,
+        fromAccount:address,
         fungibleTokenId
     });
 

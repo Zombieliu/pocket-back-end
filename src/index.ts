@@ -18,21 +18,21 @@ async function init() {
 
     // TODO
     // Prepare something... (e.g. connect the db)
-    createConnection({
-        type: "postgres",
-        host: "localhost",
-        port: 5432,
-        username: "postgres",
-        password: "123456",
-        database: "postgres",
-        entities: [
-            UserEmail
-        ],
-        synchronize: true,
-        logging: false
-    }).then(async (connection) => {
-        console.log("TsRPC Connect PostgreSQL Successed!");
-    }).catch(error => console.log(error));
+    // createConnection({
+    //     type: "postgres",
+    //     host: "localhost",
+    //     port: 5432,
+    //     username: "postgres",
+    //     password: "123456",
+    //     database: "postgres",
+    //     entities: [
+    //         UserEmail
+    //     ],
+    //     synchronize: true,
+    //     logging: false
+    // }).then(async (connection) => {
+    //     console.log("TsRPC Connect PostgreSQL Successed!");
+    // }).catch(error => console.log(error));
 };
 
 // Entry function
