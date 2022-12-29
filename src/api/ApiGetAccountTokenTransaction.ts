@@ -36,7 +36,6 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
         await call.error('Content is empty');
         return;
     }else{
-        if (fungibleTokenId == "-1"){
             let new_data_list = []
             for (let i = 0; i < data_list.total; i++){
                 const data = data_list.items[i];
@@ -51,13 +50,5 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
                 time: time,
                 data_list:JSON.stringify(new_data_list)
             });
-        }else{
-            console.log(data_list);
-            await call.succ({
-                time: time,
-                data_list:"1"
-            });
-        }
-
     }
 }
