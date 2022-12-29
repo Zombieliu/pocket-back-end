@@ -44,7 +44,7 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
                     const symbol = data_list.items[i].tokenFungibleCreated.symbol
                     const decimals = data_list.items[i].tokenFungibleCreated.decimals
                     data.tokenName = hexToString(symbol)
-                    data.decimals =  decimals
+                    data.decimals =  decimals.toString()
                     delete data.tokenFungibleCreated
                     delete data.fungibleTokenId
                     delete data.blockNum
