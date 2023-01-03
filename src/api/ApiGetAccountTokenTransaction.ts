@@ -5,6 +5,7 @@ import {
     ResGetAccountTokenTransaction
 } from "../shared/protocols/PtlGetAccountTokenTransaction";
 import {hexToString} from '@polkadot/util'
+import * as http from "http";
 
 export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResGetAccountTokenTransaction>) {
     // Error
@@ -17,10 +18,11 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
 
     const explorer_api = axios.create({
         baseURL: 'https://explorer-testnet-restful-api.web3games.org',
-        timeout: 99999,
+        // timeout: 9999,
         headers:{
             accept: 'application/json'
-        }
+        },
+        // httpAgent:new http.Agent({keepAlive:true})
     });
 
     const fromAccount = call.req.fromAccount;
@@ -34,7 +36,7 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
 
     const data_list = JSON.parse(data.data.res.content);
 
-    // console.log(data_list)
+    console.log(data_list)
     if(data_list.total == 0 ){
         await call.error('Content is empty');
         return;
@@ -69,4 +71,8 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
                 data_list:JSON.stringify(new_data_list)
             });
     }
+    // await call.succ({
+    //     time: time,
+    //     data_list:'1'
+    // });
 }
