@@ -9,7 +9,8 @@
  */
 export interface ReqGetAccountTokenTransaction {
     /** 要增加的消息内容 */
-    address:string;
+    fromAccount:string;
+    toAccount:string;
     fungibleTokenId:string;
 }
 

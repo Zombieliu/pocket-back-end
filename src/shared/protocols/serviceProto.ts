@@ -44,7 +44,7 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 8,
+    "version": 9,
     "services": [
         {
             "id": 1,
@@ -125,8 +125,15 @@ export const serviceProto: ServiceProto<ServiceType> = {
             "type": "Interface",
             "properties": [
                 {
-                    "id": 0,
-                    "name": "address",
+                    "id": 2,
+                    "name": "fromAccount",
+                    "type": {
+                        "type": "String"
+                    }
+                },
+                {
+                    "id": 3,
+                    "name": "toAccount",
                     "type": {
                         "type": "String"
                     }

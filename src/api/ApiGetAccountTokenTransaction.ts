@@ -8,7 +8,7 @@ import {hexToString} from '@polkadot/util'
 
 export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResGetAccountTokenTransaction>) {
     // Error
-    if (call.req.address === '') {
+    if (call.req.fromAccount === '') {
         await call.error('Content is empty');
         return;
     }
@@ -23,10 +23,12 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
         }
     });
 
-    const address = call.req.address;
+    const fromAccount = call.req.fromAccount;
+    const toAccount = call.req.toAccount;
     const fungibleTokenId = call.req.fungibleTokenId;
     const data = await explorer_api.post('/tokenFungible/ListTokenFungibleTransfer',{
-        fromAccount:address,
+        fromAccount,
+        toAccount,
         fungibleTokenId
     });
 
