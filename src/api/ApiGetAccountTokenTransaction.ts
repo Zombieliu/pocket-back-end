@@ -1,11 +1,10 @@
 import { ApiCall } from "tsrpc";
-import axios from "axios";
 import {
     ReqGetAccountTokenTransaction,
     ResGetAccountTokenTransaction
 } from "../shared/protocols/PtlGetAccountTokenTransaction";
 import {hexToString} from '@polkadot/util'
-import * as http from "http";
+import client from "../client";
 
 export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResGetAccountTokenTransaction>) {
     // Error
@@ -16,27 +15,21 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
 
     let time = new Date();
 
-    const explorer_api = axios.create({
-        baseURL: 'https://explorer-testnet-restful-api.web3games.org',
-        // timeout: 9999,
-        headers:{
-            accept: 'application/json'
-        },
-        // httpAgent:new http.Agent({keepAlive:true})
-    });
-
     const fromAccount = call.req.fromAccount;
     const toAccount = call.req.toAccount;
     const fungibleTokenId = call.req.fungibleTokenId;
-    const data = await explorer_api.post('/tokenFungible/ListTokenFungibleTransfer',{
+
+
+
+    const data = await client.callApi('tokenFungible/ListTokenFungibleTransfer', {
         fromAccount,
         toAccount,
         fungibleTokenId
     });
 
-    const data_list = JSON.parse(data.data.res.content);
 
-    console.log(data_list)
+    const data_list = JSON.parse(<string>data.res?.content);
+
     if(data_list.total == 0 ){
         await call.error('Content is empty');
         return;
@@ -71,8 +64,4 @@ export default async function (call: ApiCall<ReqGetAccountTokenTransaction, ResG
                 data_list:JSON.stringify(new_data_list)
             });
     }
-    // await call.succ({
-    //     time: time,
-    //     data_list:'1'
-    // });
 }
