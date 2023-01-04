@@ -3,6 +3,7 @@ import { ReqCheckEmail, ResCheckEmail } from './PtlCheckEmail';
 import { ReqGetAccountTokenTransaction, ResGetAccountTokenTransaction } from './PtlGetAccountTokenTransaction';
 import { ReqGetChainTokenBalance, ResGetChainTokenBalance } from './PtlGetChainTokenBalance';
 import { ReqGetNextProgramId, ResGetNextProgramId } from './PtlGetNextProgramId';
+import { ReqGetProgramInfo, ResGetProgramInfo } from './PtlGetProgramInfo';
 import { ReqGetProxyPayTimes, ResGetProxyPayTimes } from './PtlGetProxyPayTimes';
 import { ReqGetTokenBalance, ResGetTokenBalance } from './PtlGetTokenBalance';
 import { ReqGetTokenInfo, ResGetTokenInfo } from './PtlGetTokenInfo';
@@ -26,6 +27,10 @@ export interface ServiceType {
         "GetNextProgramId": {
             req: ReqGetNextProgramId,
             res: ResGetNextProgramId
+        },
+        "GetProgramInfo": {
+            req: ReqGetProgramInfo,
+            res: ResGetProgramInfo
         },
         "GetProxyPayTimes": {
             req: ReqGetProxyPayTimes,
@@ -54,7 +59,7 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 10,
+    "version": 11,
     "services": [
         {
             "id": 1,
@@ -74,6 +79,11 @@ export const serviceProto: ServiceProto<ServiceType> = {
         {
             "id": 12,
             "name": "GetNextProgramId",
+            "type": "api"
+        },
+        {
+            "id": 14,
+            "name": "GetProgramInfo",
             "type": "api"
         },
         {
@@ -242,6 +252,37 @@ export const serviceProto: ServiceProto<ServiceType> = {
                 {
                     "id": 1,
                     "name": "next_program_id",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        "PtlGetProgramInfo/ReqGetProgramInfo": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "program_id",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        "PtlGetProgramInfo/ResGetProgramInfo": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "time",
+                    "type": {
+                        "type": "Date"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "program_info",
                     "type": {
                         "type": "String"
                     }
