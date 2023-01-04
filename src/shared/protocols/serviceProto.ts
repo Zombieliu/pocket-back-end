@@ -2,6 +2,8 @@ import { ServiceProto } from 'tsrpc-proto';
 import { ReqCheckEmail, ResCheckEmail } from './PtlCheckEmail';
 import { ReqGetAccountTokenTransaction, ResGetAccountTokenTransaction } from './PtlGetAccountTokenTransaction';
 import { ReqGetChainTokenBalance, ResGetChainTokenBalance } from './PtlGetChainTokenBalance';
+import { ReqGetNextProgramId, ResGetNextProgramId } from './PtlGetNextProgramId';
+import { ReqGetProxyPayTimes, ResGetProxyPayTimes } from './PtlGetProxyPayTimes';
 import { ReqGetTokenBalance, ResGetTokenBalance } from './PtlGetTokenBalance';
 import { ReqGetTokenInfo, ResGetTokenInfo } from './PtlGetTokenInfo';
 import { ReqGetUserNftList, ResGetUserNftList } from './PtlGetUserNftList';
@@ -20,6 +22,14 @@ export interface ServiceType {
         "GetChainTokenBalance": {
             req: ReqGetChainTokenBalance,
             res: ResGetChainTokenBalance
+        },
+        "GetNextProgramId": {
+            req: ReqGetNextProgramId,
+            res: ResGetNextProgramId
+        },
+        "GetProxyPayTimes": {
+            req: ReqGetProxyPayTimes,
+            res: ResGetProxyPayTimes
         },
         "GetTokenBalance": {
             req: ReqGetTokenBalance,
@@ -44,7 +54,7 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 9,
+    "version": 10,
     "services": [
         {
             "id": 1,
@@ -59,6 +69,16 @@ export const serviceProto: ServiceProto<ServiceType> = {
         {
             "id": 9,
             "name": "GetChainTokenBalance",
+            "type": "api"
+        },
+        {
+            "id": 12,
+            "name": "GetNextProgramId",
+            "type": "api"
+        },
+        {
+            "id": 13,
+            "name": "GetProxyPayTimes",
             "type": "api"
         },
         {
@@ -191,6 +211,75 @@ export const serviceProto: ServiceProto<ServiceType> = {
                 {
                     "id": 1,
                     "name": "chain_token_balance",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        "PtlGetNextProgramId/ReqGetNextProgramId": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "address",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        "PtlGetNextProgramId/ResGetNextProgramId": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "time",
+                    "type": {
+                        "type": "Date"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "next_program_id",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        "PtlGetProxyPayTimes/ReqGetProxyPayTimes": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "program_id",
+                    "type": {
+                        "type": "String"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "address",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        "PtlGetProxyPayTimes/ResGetProxyPayTimes": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "time",
+                    "type": {
+                        "type": "Date"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "times",
                     "type": {
                         "type": "String"
                     }
